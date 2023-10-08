@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const flash = require("express-flash");
+const path = require("path");
 require("dotenv").config();
 
 const database = require("./config/database");
@@ -31,7 +32,12 @@ app.use(cookieParser("JHGJKLKLGFLJK"));
 app.use(session({ cookie: { maxAge: 60000 } }));
 app.use(flash());
 // End Flash
-
+// TinyMCE
+app.use(
+  "/tinymce",
+  express.static(path.join(__dirname, "node_modules", "tinymce"))
+);
+// End TinyMCE
 // App Locals Variables
 app.locals.prefixAdmin = systemConfig.prefixAdmin;
 
