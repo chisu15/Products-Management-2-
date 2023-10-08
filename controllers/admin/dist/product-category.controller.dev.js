@@ -102,4 +102,75 @@ module.exports.createPost = function _callee3(req, res) {
       }
     }
   });
+}; // [GET] /admin/products-category/edit/:id
+
+
+module.exports.edit = function _callee4(req, res) {
+  var id, data, records, newRecords;
+  return regeneratorRuntime.async(function _callee4$(_context4) {
+    while (1) {
+      switch (_context4.prev = _context4.next) {
+        case 0:
+          _context4.prev = 0;
+          id = req.params.id;
+          _context4.next = 4;
+          return regeneratorRuntime.awrap(ProductCategory.findOne({
+            _id: id,
+            deleted: false
+          }));
+
+        case 4:
+          data = _context4.sent;
+          _context4.next = 7;
+          return regeneratorRuntime.awrap(ProductCategory.find({
+            deleted: false
+          }));
+
+        case 7:
+          records = _context4.sent;
+          newRecords = createTreeHelper.tree(records);
+          res.render("admin/pages/products-category/edit", {
+            pageTitle: "Chỉnh sửa danh mục sản phẩm",
+            data: data,
+            records: newRecords
+          });
+          _context4.next = 15;
+          break;
+
+        case 12:
+          _context4.prev = 12;
+          _context4.t0 = _context4["catch"](0);
+          res.redirect("".concat(systemConfig.prefixAdmin, "/products-category"));
+
+        case 15:
+        case "end":
+          return _context4.stop();
+      }
+    }
+  }, null, null, [[0, 12]]);
+}; // [PATCH] /admin/products-category/edit/:id
+
+
+module.exports.editPatch = function _callee5(req, res) {
+  var id;
+  return regeneratorRuntime.async(function _callee5$(_context5) {
+    while (1) {
+      switch (_context5.prev = _context5.next) {
+        case 0:
+          id = req.params.id;
+          req.body.position = parseInt(req.body.position);
+          _context5.next = 4;
+          return regeneratorRuntime.awrap(ProductCategory.updateOne({
+            _id: id
+          }, req.body));
+
+        case 4:
+          res.redirect("back");
+
+        case 5:
+        case "end":
+          return _context5.stop();
+      }
+    }
+  });
 };
