@@ -10,13 +10,17 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 var Product = require("../../models/product.model");
 
+var ProductCategory = require("../../models/product-category.model");
+
 var systemConfig = require("../../config/system");
 
 var filterStatusHelper = require("../../helpers/filterStatus");
 
 var searchHelper = require("../../helpers/search");
 
-var paginationHelper = require("../../helpers/pagination"); // [GET] /admin/products
+var paginationHelper = require("../../helpers/pagination");
+
+var createTreeHelper = require("../../helpers/createTree"); // [GET] /admin/products
 
 
 module.exports.index = function _callee(req, res) {
@@ -282,15 +286,26 @@ module.exports.deleteItem = function _callee4(req, res) {
 
 
 module.exports.create = function _callee5(req, res) {
+  var find, category, newCategory;
   return regeneratorRuntime.async(function _callee5$(_context5) {
     while (1) {
       switch (_context5.prev = _context5.next) {
         case 0:
+          find = {
+            deleted: false
+          };
+          _context5.next = 3;
+          return regeneratorRuntime.awrap(ProductCategory.find(find));
+
+        case 3:
+          category = _context5.sent;
+          newCategory = createTreeHelper.tree(category);
           res.render("admin/pages/products/create", {
-            pageTitle: "Thêm mới sản phẩm"
+            pageTitle: "Thêm mới sản phẩm",
+            category: newCategory
           });
 
-        case 1:
+        case 6:
         case "end":
           return _context5.stop();
       }
