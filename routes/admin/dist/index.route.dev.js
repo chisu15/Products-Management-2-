@@ -8,9 +8,12 @@ var productRoutes = require("./product.route");
 
 var productCategoryRoutes = require("./product-category.route");
 
+var roleRoutes = require("./role.route");
+
 module.exports = function (app) {
   var PATH_ADMIN = systemConfig.prefixAdmin;
   app.use(PATH_ADMIN + "/dashboard", dashboardRoutes);
   app.use(PATH_ADMIN + "/products", productRoutes);
   app.use(PATH_ADMIN + "/products-category", productCategoryRoutes);
+  app.use(PATH_ADMIN + "/roles", roleRoutes);
 };
