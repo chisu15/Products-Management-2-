@@ -70,4 +70,77 @@ module.exports.createPost = function _callee3(req, res) {
       }
     }
   });
+}; // [GET] /admin/roles/edit/:id
+
+
+module.exports.edit = function _callee4(req, res) {
+  var id, find, data;
+  return regeneratorRuntime.async(function _callee4$(_context4) {
+    while (1) {
+      switch (_context4.prev = _context4.next) {
+        case 0:
+          _context4.prev = 0;
+          id = req.params.id;
+          find = {
+            _id: id,
+            deleted: false
+          };
+          _context4.next = 5;
+          return regeneratorRuntime.awrap(Role.findOne(find));
+
+        case 5:
+          data = _context4.sent;
+          res.render("admin/pages/roles/edit", {
+            pageTitle: "Sửa nhóm quyền",
+            data: data
+          });
+          _context4.next = 12;
+          break;
+
+        case 9:
+          _context4.prev = 9;
+          _context4.t0 = _context4["catch"](0);
+          res.redirect("".concat(systemConfig.prefixAdmin, "/roles"));
+
+        case 12:
+        case "end":
+          return _context4.stop();
+      }
+    }
+  }, null, null, [[0, 9]]);
+}; // [PATCH] /admin/roles/edit/:id
+
+
+module.exports.editPatch = function _callee5(req, res) {
+  var id;
+  return regeneratorRuntime.async(function _callee5$(_context5) {
+    while (1) {
+      switch (_context5.prev = _context5.next) {
+        case 0:
+          _context5.prev = 0;
+          id = req.params.id;
+          _context5.next = 4;
+          return regeneratorRuntime.awrap(Role.updateOne({
+            _id: id
+          }, req.body));
+
+        case 4:
+          req.flash("success", "Cập nhật nhóm quyền thành công!");
+          _context5.next = 10;
+          break;
+
+        case 7:
+          _context5.prev = 7;
+          _context5.t0 = _context5["catch"](0);
+          req.flash("error", "Cập nhật nhóm quyền thất bại!");
+
+        case 10:
+          res.redirect("back");
+
+        case 11:
+        case "end":
+          return _context5.stop();
+      }
+    }
+  }, null, null, [[0, 7]]);
 };
