@@ -143,4 +143,112 @@ module.exports.editPatch = function _callee5(req, res) {
       }
     }
   }, null, null, [[0, 7]]);
+}; // [GET] /admin/roles/permissions
+
+
+module.exports.permissions = function _callee6(req, res) {
+  var find, records;
+  return regeneratorRuntime.async(function _callee6$(_context6) {
+    while (1) {
+      switch (_context6.prev = _context6.next) {
+        case 0:
+          find = {
+            deleted: false
+          };
+          _context6.next = 3;
+          return regeneratorRuntime.awrap(Role.find(find));
+
+        case 3:
+          records = _context6.sent;
+          res.render("admin/pages/roles/permissions", {
+            pageTitle: "Phân quyền",
+            records: records
+          });
+
+        case 5:
+        case "end":
+          return _context6.stop();
+      }
+    }
+  });
+}; // [PATCH] /admin/roles/permissions
+
+
+module.exports.permissionsPatch = function _callee7(req, res) {
+  var permissions, _iteratorNormalCompletion, _didIteratorError, _iteratorError, _iterator, _step, item;
+
+  return regeneratorRuntime.async(function _callee7$(_context7) {
+    while (1) {
+      switch (_context7.prev = _context7.next) {
+        case 0:
+          permissions = JSON.parse(req.body.permissions);
+          _iteratorNormalCompletion = true;
+          _didIteratorError = false;
+          _iteratorError = undefined;
+          _context7.prev = 4;
+          _iterator = permissions[Symbol.iterator]();
+
+        case 6:
+          if (_iteratorNormalCompletion = (_step = _iterator.next()).done) {
+            _context7.next = 13;
+            break;
+          }
+
+          item = _step.value;
+          _context7.next = 10;
+          return regeneratorRuntime.awrap(Role.updateOne({
+            _id: item.id
+          }, {
+            permissions: item.permissions
+          }));
+
+        case 10:
+          _iteratorNormalCompletion = true;
+          _context7.next = 6;
+          break;
+
+        case 13:
+          _context7.next = 19;
+          break;
+
+        case 15:
+          _context7.prev = 15;
+          _context7.t0 = _context7["catch"](4);
+          _didIteratorError = true;
+          _iteratorError = _context7.t0;
+
+        case 19:
+          _context7.prev = 19;
+          _context7.prev = 20;
+
+          if (!_iteratorNormalCompletion && _iterator["return"] != null) {
+            _iterator["return"]();
+          }
+
+        case 22:
+          _context7.prev = 22;
+
+          if (!_didIteratorError) {
+            _context7.next = 25;
+            break;
+          }
+
+          throw _iteratorError;
+
+        case 25:
+          return _context7.finish(22);
+
+        case 26:
+          return _context7.finish(19);
+
+        case 27:
+          req.flash("success", "Cập nhật phân quyền thành công!");
+          res.redirect("back");
+
+        case 29:
+        case "end":
+          return _context7.stop();
+      }
+    }
+  }, null, null, [[4, 15, 19, 27], [20,, 22, 26]]);
 };
