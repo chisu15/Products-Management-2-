@@ -359,7 +359,7 @@ module.exports.createPost = function _callee6(req, res) {
 
 
 module.exports.edit = function _callee7(req, res) {
-  var find, product;
+  var find, product, category, newCategory;
   return regeneratorRuntime.async(function _callee7$(_context7) {
     while (1) {
       switch (_context7.prev = _context7.next) {
@@ -374,24 +374,33 @@ module.exports.edit = function _callee7(req, res) {
 
         case 4:
           product = _context7.sent;
+          _context7.next = 7;
+          return regeneratorRuntime.awrap(ProductCategory.find({
+            deleted: false
+          }));
+
+        case 7:
+          category = _context7.sent;
+          newCategory = createTreeHelper.tree(category);
           res.render("admin/pages/products/edit", {
             pageTitle: "Chỉnh sửa sản phẩm",
-            product: product
+            product: product,
+            category: newCategory
           });
-          _context7.next = 11;
+          _context7.next = 15;
           break;
 
-        case 8:
-          _context7.prev = 8;
+        case 12:
+          _context7.prev = 12;
           _context7.t0 = _context7["catch"](0);
           res.redirect("".concat(systemConfig.prefixAdmin, "/products"));
 
-        case 11:
+        case 15:
         case "end":
           return _context7.stop();
       }
     }
-  }, null, null, [[0, 8]]);
+  }, null, null, [[0, 12]]);
 }; // [PATCH] /admin/products/edit/:id
 
 
