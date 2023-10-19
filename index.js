@@ -5,6 +5,7 @@ const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const flash = require("express-flash");
 const path = require("path");
+const moment = require("moment");
 require("dotenv").config();
 
 const database = require("./config/database");
@@ -40,7 +41,7 @@ app.use(
 // End TinyMCE
 // App Locals Variables
 app.locals.prefixAdmin = systemConfig.prefixAdmin;
-
+app.locals.moment = moment;
 app.use(express.static(`${__dirname}/public`));
 
 // Routes
