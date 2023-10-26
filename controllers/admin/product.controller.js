@@ -110,8 +110,7 @@ module.exports.changeMulti = async (req, res) => {
     account_id: res.locals.user.id,
     updatedAt: new Date()
   }
-
-
+  
   switch (type) {
     case "active":
       await Product.updateMany({ _id: { $in: ids } }, {
